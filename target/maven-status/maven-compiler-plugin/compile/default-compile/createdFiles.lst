@@ -1,0 +1,12 @@
+modelos\Sale.class
+com\mycompany\controle\estoque\JakartaRestConfiguration.class
+modelos\Address.class
+modelos\Purchase.class
+modelos\PurchaseItens.class
+modelos\User.class
+modelos\Contact.class
+modelos\Company.class
+com\mycompany\controle\estoque\resources\JakartaEE8Resource.class
+modelos\Product.class
+modelos\SaleItems.class
+modelos\Stock.class
