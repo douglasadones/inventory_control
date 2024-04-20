@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -15,6 +16,7 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
+@Table(name = "address")
 public class Address extends GenericEntity {
     @Id
     @SequenceGenerator(sequenceName = "seq_address", name = "seq_address")

@@ -2,15 +2,18 @@ package modelos;
 
 import generics.GenericEntity;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -18,19 +21,26 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
+@Table(name = "sale")
 public class Sale extends GenericEntity {
     @Id
     @SequenceGenerator(sequenceName = "seq_sale", name = "seq_sale")
     @GeneratedValue(generator = "seq_sale", strategy = GenerationType.SEQUENCE)
     private Long idSale;
     
+    @Column(nullable = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    private Client cliente;
+    
+    @Column(nullable = true)
+    private String description;
     
     @Column(nullable = false)
     private BigDecimal totalPrice;
     
     @Column(nullable = false)
-    @OneToOne
-    private SaleItems products;  // OneToOne mesmo, né?
+    @OneToMany
+    private List<SaleItems> products;
 
     public Sale() {
     }
@@ -43,6 +53,22 @@ public class Sale extends GenericEntity {
         this.idSale = idSale;
     }
 
+    public Client getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Client cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
@@ -51,44 +77,22 @@ public class Sale extends GenericEntity {
         this.totalPrice = totalPrice;
     }
 
-    public SaleItems getProducts() {
+    public List<SaleItems> getProducts() {
         return products;
     }
 
-    public void setProducts(SaleItems products) {
+    public void setProducts(List<SaleItems> products) {
         this.products = products;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Date getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.idSale);
-        hash = 53 * hash + Objects.hashCode(this.totalPrice);
-        hash = 53 * hash + Objects.hashCode(this.products);
+        hash = 89 * hash + Objects.hashCode(this.idSale);
+        hash = 89 * hash + Objects.hashCode(this.cliente);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + Objects.hashCode(this.totalPrice);
+        hash = 89 * hash + Objects.hashCode(this.products);
         return hash;
     }
 
@@ -104,7 +108,13 @@ public class Sale extends GenericEntity {
             return false;
         }
         final Sale other = (Sale) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
         if (!Objects.equals(this.idSale, other.idSale)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
             return false;
         }
         if (!Objects.equals(this.totalPrice, other.totalPrice)) {
@@ -112,8 +122,7 @@ public class Sale extends GenericEntity {
         }
         return Objects.equals(this.products, other.products);
     }
-
     
     
-    
+      
 }

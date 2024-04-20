@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -18,7 +19,8 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
-public class User extends GenericEntity { // Sobre o warning na palavra "user": "The entity table name is a reserved SQL-99 keyword." isso pode me gerar dor de cabeça futuramente?
+@Table(name = "Users")
+public class Users extends GenericEntity {
     
     @Id
     @SequenceGenerator(sequenceName = "seq_user", name = "seq_user")
@@ -41,12 +43,8 @@ public class User extends GenericEntity { // Sobre o warning na palavra "user": 
     @Column(nullable = false)
     @OneToMany(cascade = CascadeType.ALL)
     private List<Contact> contactList;
-    
-    @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Stock> stockList;
 
-    public User() {
+    public Users() {
     }
 
     public Long getIdUser() {
@@ -97,24 +95,15 @@ public class User extends GenericEntity { // Sobre o warning na palavra "user": 
         this.contactList = contactList;
     }
 
-    public List<Stock> getStockList() {
-        return stockList;
-    }
-
-    public void setStockList(List<Stock> stockList) {
-        this.stockList = stockList;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.idUser);
-        hash = 29 * hash + Objects.hashCode(this.name);
-        hash = 29 * hash + Objects.hashCode(this.login);
-        hash = 29 * hash + Objects.hashCode(this.password);
-        hash = 29 * hash + Objects.hashCode(this.companyList);
-        hash = 29 * hash + Objects.hashCode(this.contactList);
-        hash = 29 * hash + Objects.hashCode(this.stockList);
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.idUser);
+        hash = 89 * hash + Objects.hashCode(this.name);
+        hash = 89 * hash + Objects.hashCode(this.login);
+        hash = 89 * hash + Objects.hashCode(this.password);
+        hash = 89 * hash + Objects.hashCode(this.companyList);
+        hash = 89 * hash + Objects.hashCode(this.contactList);
         return hash;
     }
 
@@ -129,7 +118,7 @@ public class User extends GenericEntity { // Sobre o warning na palavra "user": 
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final User other = (User) obj;
+        final Users other = (Users) obj;
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -145,13 +134,7 @@ public class User extends GenericEntity { // Sobre o warning na palavra "user": 
         if (!Objects.equals(this.companyList, other.companyList)) {
             return false;
         }
-        if (!Objects.equals(this.contactList, other.contactList)) {
-            return false;
-        }
-        return Objects.equals(this.stockList, other.stockList);
+        return Objects.equals(this.contactList, other.contactList);
     }
-
-    
-
     
 }

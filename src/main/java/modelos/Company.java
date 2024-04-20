@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
+@Table(name = "company")
 public class Company extends GenericEntity {
     @Id
     @SequenceGenerator(sequenceName = "seq_company", name = "seq_company")

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -15,12 +16,13 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
+@Table(name = "purchaseItems")
 public class PurchaseItems extends GenericEntity {
     @Id
     @SequenceGenerator(sequenceName = "seq_purchaseItems", name = "seq_purchaseItems")
     private Long idPurchaseItems;
     
-    @OneToMany(cascade = CascadeType.ALL) //OneToMany? ou ManyToMany?
+    @OneToMany(cascade = CascadeType.ALL) 
     private ArrayList<Product> products;
 
     public PurchaseItems() {

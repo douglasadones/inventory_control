@@ -2,14 +2,16 @@ package modelos;
 
 import generics.GenericEntity;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -17,19 +19,22 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
+@Table(name = "purchase")
 public class Purchase extends GenericEntity {
     @Id
     @SequenceGenerator(sequenceName = "seq_purchase", name = "seq_purchase")
     @GeneratedValue(generator = "seq_purchase", strategy = GenerationType.SEQUENCE)
     private Long Idpurchase;
    
-    
+    @Column(nullable = true)
+    private String description;
+            
     @Column(nullable = false)
     private BigDecimal totalPrice;
     
     @Column(nullable = false)
-    @OneToOne
-    private PurchaseItems products; // OneToOne nesse caso?
+    @OneToMany
+    private List<PurchaseItems> products;
 
     public Purchase() {
     }
@@ -42,6 +47,14 @@ public class Purchase extends GenericEntity {
         this.Idpurchase = Idpurchase;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
@@ -50,20 +63,21 @@ public class Purchase extends GenericEntity {
         this.totalPrice = totalPrice;
     }
 
-    public PurchaseItems getProducts() {
+    public List<PurchaseItems> getProducts() {
         return products;
     }
 
-    public void setProducts(PurchaseItems products) {
+    public void setProducts(List<PurchaseItems> products) {
         this.products = products;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.Idpurchase);
-        hash = 89 * hash + Objects.hashCode(this.totalPrice);
-        hash = 89 * hash + Objects.hashCode(this.products);
+        int hash = 3;
+        hash = 61 * hash + Objects.hashCode(this.Idpurchase);
+        hash = 61 * hash + Objects.hashCode(this.description);
+        hash = 61 * hash + Objects.hashCode(this.totalPrice);
+        hash = 61 * hash + Objects.hashCode(this.products);
         return hash;
     }
 
@@ -79,6 +93,9 @@ public class Purchase extends GenericEntity {
             return false;
         }
         final Purchase other = (Purchase) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
         if (!Objects.equals(this.Idpurchase, other.Idpurchase)) {
             return false;
         }
@@ -87,7 +104,7 @@ public class Purchase extends GenericEntity {
         }
         return Objects.equals(this.products, other.products);
     }
-
-
-
+    
+    
+   
 }
