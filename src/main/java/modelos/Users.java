@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -41,8 +42,8 @@ public class Users extends GenericEntity {
     private List<Company> companyList;
     
     @Column(nullable = false)
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Contact> contactList;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Contact contact;
 
     public Users() {
     }
@@ -87,12 +88,12 @@ public class Users extends GenericEntity {
         this.companyList = companyList;
     }
 
-    public List<Contact> getContactList() {
-        return contactList;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     @Override
@@ -103,7 +104,7 @@ public class Users extends GenericEntity {
         hash = 89 * hash + Objects.hashCode(this.login);
         hash = 89 * hash + Objects.hashCode(this.password);
         hash = 89 * hash + Objects.hashCode(this.companyList);
-        hash = 89 * hash + Objects.hashCode(this.contactList);
+        hash = 89 * hash + Objects.hashCode(this.contact);
         return hash;
     }
 
@@ -134,7 +135,7 @@ public class Users extends GenericEntity {
         if (!Objects.equals(this.companyList, other.companyList)) {
             return false;
         }
-        return Objects.equals(this.contactList, other.contactList);
+        return Objects.equals(this.contact, other.contact);
     }
     
 }
