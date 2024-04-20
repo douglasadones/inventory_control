@@ -1,17 +1,38 @@
 package modelos;
 
+import generics.GenericEntity;
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author dougl
  */
-public class Stock {
+
+@Entity
+public class Stock extends GenericEntity {
     
+    @Id
+    @SequenceGenerator(sequenceName = "seq_stock", name = "seq_stock")
+    @GeneratedValue(generator = "seq_stock", strategy = GenerationType.SEQUENCE)
     private Long idStock;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = true)
     private String description;
+    
+    @Column(nullable = false)
+    @OneToMany(cascade = CascadeType.ALL) // OneToOne mesmo?
     private ArrayList<Product> products;
 
     public Stock() {

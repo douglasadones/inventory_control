@@ -1,18 +1,36 @@
 package modelos;
 
+import generics.GenericEntity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author dougl
  */
-public class Sale {
+
+@Entity
+public class Sale extends GenericEntity {
+    @Id
+    @SequenceGenerator(sequenceName = "seq_sale", name = "seq_sale")
+    @GeneratedValue(generator = "seq_sale", strategy = GenerationType.SEQUENCE)
     private Long idSale;
-    private Date saleDate;
+    
+    
+    @Column(nullable = false)
     private BigDecimal totalPrice;
-    private SaleItems products;
+    
+    @Column(nullable = false)
+    @OneToOne
+    private SaleItems products;  // OneToOne mesmo, né?
 
     public Sale() {
     }
@@ -23,14 +41,6 @@ public class Sale {
 
     public void setIdSale(Long idSale) {
         this.idSale = idSale;
-    }
-
-    public Date getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
     }
 
     public BigDecimal getTotalPrice() {
@@ -49,13 +59,36 @@ public class Sale {
         this.products = products;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.idSale);
-        hash = 41 * hash + Objects.hashCode(this.saleDate);
-        hash = 41 * hash + Objects.hashCode(this.totalPrice);
-        hash = 41 * hash + Objects.hashCode(this.products);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.idSale);
+        hash = 53 * hash + Objects.hashCode(this.totalPrice);
+        hash = 53 * hash + Objects.hashCode(this.products);
         return hash;
     }
 
@@ -74,14 +107,12 @@ public class Sale {
         if (!Objects.equals(this.idSale, other.idSale)) {
             return false;
         }
-        if (!Objects.equals(this.saleDate, other.saleDate)) {
-            return false;
-        }
         if (!Objects.equals(this.totalPrice, other.totalPrice)) {
             return false;
         }
         return Objects.equals(this.products, other.products);
     }
+
     
     
     

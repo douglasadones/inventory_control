@@ -3,9 +3,8 @@ package modelos;
 import generics.GenericEntity;
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -16,25 +15,23 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
-public class SaleItems extends GenericEntity {
-    
+public class PurchaseItems extends GenericEntity {
     @Id
-    @SequenceGenerator(sequenceName = "seq_saleItems", name = "seq_saleItems")
-    @GeneratedValue(generator = "seq_saleItems", strategy = GenerationType.SEQUENCE)
-    private Long idSaleItems;
+    @SequenceGenerator(sequenceName = "seq_purchaseItems", name = "seq_purchaseItems")
+    private Long idPurchaseItems;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL) //OneToMany? ou ManyToMany?
     private ArrayList<Product> products;
 
-    public SaleItems() {
+    public PurchaseItems() {
     }
 
-    public Long getIdSaleItems() {
-        return idSaleItems;
+    public Long getIdPurchaseItems() {
+        return idPurchaseItems;
     }
 
-    public void setIdSaleItems(Long idSaleItems) {
-        this.idSaleItems = idSaleItems;
+    public void setIdPurchaseItems(Long idPurchaseItems) {
+        this.idPurchaseItems = idPurchaseItems;
     }
 
     public ArrayList<Product> getProducts() {
@@ -48,8 +45,8 @@ public class SaleItems extends GenericEntity {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.idSaleItems);
-        hash = 97 * hash + Objects.hashCode(this.products);
+        hash = 73 * hash + Objects.hashCode(this.idPurchaseItems);
+        hash = 73 * hash + Objects.hashCode(this.products);
         return hash;
     }
 
@@ -64,12 +61,12 @@ public class SaleItems extends GenericEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final SaleItems other = (SaleItems) obj;
-        if (!Objects.equals(this.idSaleItems, other.idSaleItems)) {
+        final PurchaseItems other = (PurchaseItems) obj;
+        if (!Objects.equals(this.idPurchaseItems, other.idPurchaseItems)) {
             return false;
         }
         return Objects.equals(this.products, other.products);
     }
-    
+
     
 }

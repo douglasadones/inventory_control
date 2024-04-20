@@ -1,16 +1,34 @@
 package modelos;
 
+import generics.GenericEntity;
 import java.util.ArrayList;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author dougl
  */
-public class Contact {
-    
+
+@Entity
+public class Contact extends GenericEntity {
+    @Id
+    @SequenceGenerator(sequenceName = "seq_contact", name = "seq_contact")
+    @GeneratedValue(generator = "seq_contact", strategy = GenerationType.SEQUENCE)
     private Long IdContact;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(nullable = false)
     private ArrayList<Integer> number;
+    
+    @Column(nullable = false)
     private String email;
 
     public Contact() {
@@ -69,8 +87,5 @@ public class Contact {
         }
         return Objects.equals(this.number, other.number);
     }
-
-
-    
     
 }

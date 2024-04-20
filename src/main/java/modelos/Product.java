@@ -1,20 +1,43 @@
 package modelos;
 
+import generics.GenericEntity;
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author dougl
  */
-public class Product {
+@Entity
+public class Product extends GenericEntity{
     
+    @Id
+    @SequenceGenerator(name = "seq_product", sequenceName = "seq_product")
+    @GeneratedValue(generator = "seq_product", strategy = GenerationType.SEQUENCE)
     private Long idProduct;
+    
+    @Column(nullable = false)
     private int code;
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = true)
     private String description;
+    
+    @Column(nullable = false)
     private int amount;
+    
+    @Column(nullable = false)
     private BigDecimal purchasePrice;
+    
+    @Column(nullable = false)
     private BigDecimal salePrice;
 
     public Product() {

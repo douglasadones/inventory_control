@@ -1,16 +1,40 @@
 package modelos;
 
+import generics.GenericEntity;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author dougl
  */
-public class Company {
+
+@Entity
+public class Company extends GenericEntity {
+    @Id
+    @SequenceGenerator(sequenceName = "seq_company", name = "seq_company")
+    @GeneratedValue(generator = "seq_company", strategy = GenerationType.SEQUENCE)
     private Long idCompany;
+    
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    
     private int cnpj;
+    @OneToOne(cascade = CascadeType.ALL)
+    
+    @Column(nullable = false)
     private Address address;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @Column(nullable = false)
     private Contact contact;
 
     public Company() {
